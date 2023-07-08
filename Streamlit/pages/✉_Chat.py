@@ -2,16 +2,17 @@
 import streamlit as st
 import requests
 import time
+import base64
+import json
 
 st.set_page_config(
     page_title="OpenEyes",
     page_icon="👀",
 )
 
-
 st.title("OpenEyes")
 
-API_KEY = st.secrets["OPENAI_API_KEY"]
+# API_KEY = st.secrets["OPENAI_API_KEY"]
 
 
 def makeRequest(prompt):
@@ -62,6 +63,33 @@ if prompt := st.chat_input("What is up?"):
         message_placeholder.markdown(full_response)
         st.session_state.messages.append(
             {"role": "assistant", "content": full_response}
+        )
+
+
+# 3 cols
+col1, col2, col3 = st.columns([1, 1, 1])
+
+with col1:
+    if st.button("Export Chat History"):
+        # Download the chat history as a json file
+        # Convert JSON data to a string and encode as UTF-8
+        json_data = json.dumps(st.session_state.messages).encode("utf-8")
+
+        b64 = base64.b64encode(json_data).decode()
+        href = f'<a href="data:application/json;base64,{b64}" download="example.json">Download JSON</a>'
+        st.markdown(href, unsafe_allow_html=True)
+
+with col3:
+    # Clear chat button
+    if st.button("Clear Chat"):
+        # remove all the messages from the session state
+        st.session_state.messages = []
+        # add a default message to the session state
+        st.session_state.messages.append(
+            {
+                "role": "assistant",
+                "content": "Hi, I'm OpenEyes. I'm here to help you with your queries related to Animals. What do you want to know?",
+            }
         )
 
 print(st.session_state.messages)

@@ -2,7 +2,7 @@ import streamlit as st
 
 
 st.set_page_config(
-    page_title="About OpenEyes",
+    page_title="About OpenEyes Devs",
     page_icon="👀",
 )
 

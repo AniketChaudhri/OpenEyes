@@ -9,7 +9,7 @@ st.set_page_config(
 TeamMember1 = {
     "Name": "Adarsh Anand",
     "image": "https://avatars.githubusercontent.com/u/73928744?v=4",
-    "Role": "DSC Lead '22 | Foss Overflow Mentor | Postman Leader | MERN | 4⭐CC | IIT Goa CSE '24",
+    "Role": "Intern @Intel | ICPC'22 Regionalist | Specialist @CodeForces | Ex-Graphy | Knight @LeetCode | Google DSC Lead '22 | IIT Goa CSE '24",
     "LinkedIn": "https://www.linkedin.com/in/adarsh-anand-iitgoa/",
     "GitHub": "https://github.com/adarshanand67",
     "description": "I am a Full-stack developer with a passion for problem-solving. I love working on backend and frontend projects, but my true love is React.js. I enjoy working on projects that are challenging and have the potential to make a positive impact on people's lives.",
@@ -46,7 +46,7 @@ def show_details(TeamMember):
 
 # add border
 with col1:
-    show_details(TeamMember1)
+    show_details(TeamMember2)
 
 with col3:
-    show_details(TeamMember2)
+    show_details(TeamMember1)

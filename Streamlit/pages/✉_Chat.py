@@ -91,5 +91,7 @@ with col3:
                 "content": "Hi, I'm OpenEyes. I'm here to help you with your queries related to Animals. What do you want to know?",
             }
         )
+        # rerun the app
+        st.experimental_rerun()
 
 print(st.session_state.messages)

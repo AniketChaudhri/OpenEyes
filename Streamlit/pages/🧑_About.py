@@ -40,8 +40,8 @@ def show_details(TeamMember):
     st.image(TeamMember["image"], width=200)
     st.header(TeamMember["Name"])
     st.markdown(TeamMember["Role"])
-    st.markdown(f"[LinkedIn]({TeamMember['LinkedIn']})")
-    st.markdown(f"[GitHub]({TeamMember['GitHub']})")
+    st.subheader(f"[LinkedIn]({TeamMember['LinkedIn']})")
+    st.subheader(f"[GitHub]({TeamMember['GitHub']})")
     st.write(TeamMember["description"])
 
 # add border

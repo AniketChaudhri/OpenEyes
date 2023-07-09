@@ -53,6 +53,7 @@ from transformers import (
 )
 
 
+@st.cache_resource()
 class CommandDetector:
     def __init__(self, model_path, tokenizer="bert-base-uncased"):
         self.tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
@@ -64,7 +65,7 @@ class CommandDetector:
         # Classify the input prompt
         result = self.classifier(prompt)
         command_id = int(result[0]["label"].split("_")[-1])
-        command = {0: "vision", 1: "chat", 2: "goodbye"}[command_id]
+        command = {0: "vision", 1: "chat", 2: "goodbye", 3: "other", 4: "other", 5: "other"}[command_id]
 
         return command
 
@@ -79,7 +80,7 @@ if prompt := st.chat_input("What is up?"):
     mycd = CommandDetector(model_path="./models/checkpoint-760")
     # st.write(intent)
     intent = mycd.command_filter(prompt)
-    # st.write(intent)
+    st.write(intent)
     if intent == "vision":
         # st.info("Head over to the camera page to take a picture 📷")
         st.session_state.messages = []

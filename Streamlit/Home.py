@@ -43,5 +43,11 @@ with st.expander("🐍 Python Libraries Used"):
         - `Pandas` - For data processing
         - `Matplotlib` - For data visualization
         - `YOLOv8` - For object detection
+        - `PyTorch` - For deep learning
+        - `Transformers` - For NLP
+        - `HuggingFace` - For NLP
+        - `Whisper` - For speech recognition
+        - `PyAudio` - For audio processing
+        
         """
     )

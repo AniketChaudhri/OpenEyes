@@ -43,10 +43,67 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):  # creating a chat message with the role
         st.markdown(message["content"])  # adding the content to the chat message
 
+
+from transformers import pipeline
+from transformers import (
+    AutoTokenizer,
+    AutoModelForSequenceClassification,
+    TrainingArguments,
+    Trainer,
+)
+
+
+class CommandDetector:
+    def __init__(self, model_path, tokenizer="bert-base-uncased"):
+        self.tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+        self.classifier = pipeline(
+            "text-classification", model=model_path, tokenizer=tokenizer
+        )
+
+    def command_filter(self, prompt):
+        # Classify the input prompt
+        result = self.classifier(prompt)
+        command_id = int(result[0]["label"].split("_")[-1])
+        command = {0: "vision", 1: "chat", 2: "goodbye"}[command_id]
+
+        return command
+
+
 # Accept user input
 if prompt := st.chat_input("What is up?"):
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
+
+    # # Classify the input prompt as intent
+    # get the model path from ../../models/checkpoint-760
+    mycd = CommandDetector(model_path="../models/checkpoint-760")
+    # st.write(intent)
+    intent = mycd.command_filter(prompt)
+    # st.write(intent)
+    if intent == "vision":
+        # st.info("Head over to the camera page to take a picture 📷")
+        st.session_state.messages = []
+        st.session_state.messages.append(
+            {
+                "role": "assistant",
+                "content": "Head over to the camera page to take a picture 📷",
+            }
+        )
+        st.experimental_rerun()
+    elif intent == "goodbye":
+        st.session_state.messages = []
+        # st.info("Bye 👋")
+        st.session_state.messages.append(
+            {
+                "role": "assistant",
+                "content": "Bye 👋, loved talking to you. See you soon!",
+            }
+        )
+        st.experimental_rerun()
+    else:
+        # st.info("Head over to the chat page to ask questions and link to the page")
+        pass
+
     # Display user message in chat message container
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -94,4 +151,4 @@ with col3:
         # rerun the app
         st.experimental_rerun()
 
-print(st.session_state.messages)
+# print(st.session_state.messages)

@@ -76,7 +76,7 @@ if prompt := st.chat_input("What is up?"):
 
     # # Classify the input prompt as intent
     # get the model path from ../../models/checkpoint-760
-    mycd = CommandDetector(model_path="../models/checkpoint-760")
+    mycd = CommandDetector(model_path="./models/checkpoint-760")
     # st.write(intent)
     intent = mycd.command_filter(prompt)
     # st.write(intent)
